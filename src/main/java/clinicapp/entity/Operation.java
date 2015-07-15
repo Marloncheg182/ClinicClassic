@@ -1,6 +1,6 @@
 package clinicapp.entity;
 
-import org.hibernate.annotations.GenericGenerator;
+
 
 import javax.faces.bean.ManagedBean;
 import javax.persistence.*;

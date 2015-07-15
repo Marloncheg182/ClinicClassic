@@ -5,7 +5,7 @@ package clinicapp.entity;
 
 import javax.faces.bean.ManagedBean;
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "card")
@@ -36,9 +36,20 @@ public class Card {
     private String additionalNotes;
 
     // creating of relations between Card table and Patient.
-    @OneToOne(optional = false, targetEntity = Patient.class)
-    @JoinColumn(name = "patient_id", referencedColumnName = "id", nullable = false)
+    @OneToOne(optional = false, mappedBy = "patient")
     private Patient patient;
+
+    @OneToOne(optional = false, mappedBy = "insurance")
+    private Insurance insurance;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "procedure")
+    private List<Procedure> procedure;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "operation")
+    private List<Operation> operations;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "analysis")
+    private List<Analysis> analysises;
 
     public Card() {
     }
@@ -117,15 +128,36 @@ public class Card {
         this.patient = patient;
     }
 
-    @OneToMany(mappedBy = "card")
-    private Collection<Procedure> procedure;
+    public Insurance getInsurance() {
+        return insurance;
+    }
 
-    public Collection<Procedure> getProcedure() {
+    public void setInsurance(Insurance insurance) {
+        this.insurance = insurance;
+    }
+
+    public List<Procedure> getProcedure() {
         return procedure;
     }
 
-    public void setProcedure(Collection<Procedure> procedure) {
+    public void setProcedure(List<Procedure> procedure) {
         this.procedure = procedure;
+    }
+
+    public List<Operation> getOperations() {
+        return operations;
+    }
+
+    public void setOperations(List<Operation> operations) {
+        this.operations = operations;
+    }
+
+    public List<Analysis> getAnalysises() {
+        return analysises;
+    }
+
+    public void setAnalysises(List<Analysis> analysises) {
+        this.analysises = analysises;
     }
 
     @Override
@@ -139,10 +171,16 @@ public class Card {
                 ", symptoms='" + symptoms + '\'' +
                 ", additionalNotes='" + additionalNotes + '\'' +
                 ", patient=" + patient +
+                ", insurance=" + insurance +
                 ", procedure=" + procedure +
+                ", operations=" + operations +
+                ", analysises=" + analysises +
                 '}';
     }
 }
+
+
+
 
 
 

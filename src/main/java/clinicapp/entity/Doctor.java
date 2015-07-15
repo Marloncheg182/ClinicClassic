@@ -26,12 +26,14 @@ public class Doctor {
     private int age;
 
     @Column(name = "position")
+    @Enumerated(EnumType.STRING)
     private DoctorPosition position;
 
     @Column(name = "phone_number")
     private String phoneNumber;
 
     @Column(name = "rating")
+    @Enumerated(EnumType.STRING)
     private Rating rating;
 
     // creating of relations between Doctor table and Clinic.

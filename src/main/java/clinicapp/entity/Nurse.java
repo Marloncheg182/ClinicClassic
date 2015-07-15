@@ -2,7 +2,7 @@ package clinicapp.entity;
 
 
 import clinicapp.entity.nurses.NursePosition;
-import org.hibernate.annotations.GenericGenerator;
+
 
 import javax.faces.bean.ManagedBean;
 import javax.persistence.*;
@@ -26,6 +26,7 @@ public class Nurse {
     private int age;
 
     @Column(name = "position")
+    @Enumerated(EnumType.STRING)
     private NursePosition position;
 
     @Column(name = "phone_number")
@@ -33,7 +34,7 @@ public class Nurse {
 
     // creating of relations between Nurse table and Clinic.
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "clinic_id", nullable = false)
+    @JoinColumn(name = "clinic_id", unique = true, nullable = false)
     private Clinic clinic;
 
     public Nurse() {

@@ -1,6 +1,6 @@
 package clinicapp.entity;
 
-import org.hibernate.annotations.GenericGenerator;
+
 
 import javax.faces.bean.ManagedBean;
 import javax.persistence.*;
@@ -19,8 +19,8 @@ public class Insurance {
     private int bankAccount;
 
     // creating of relations between Insurance table and Card.
-    @OneToOne(optional = false, targetEntity = Card.class)
-    @JoinColumn(name = "card_id", nullable = false)
+    @OneToOne(optional = false, mappedBy = "card")
+    @JoinColumn(name = "card_id", unique = true, nullable = false)
     private Card card;
 
     public Insurance() {

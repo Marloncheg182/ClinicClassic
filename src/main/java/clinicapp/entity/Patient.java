@@ -30,12 +30,17 @@ public class Patient {
     private String phoneNumber;
 
     @Column(name = "state")
+    @Enumerated(EnumType.STRING)
     private PatientState state;
 
     // creating of relations between Patient table and Clinic.
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "clinic_id", nullable = false)
     private Clinic clinic;
+
+    @OneToOne(optional = false)
+    @JoinColumn(name = "card_id", unique = true, nullable = false)
+    private Card card;
 
     public Patient() {
     }
@@ -105,6 +110,14 @@ public class Patient {
         this.clinic = clinic;
     }
 
+    public Card getCard() {
+        return card;
+    }
+
+    public void setCard(Card card) {
+        this.card = card;
+    }
+
     @Override
     public String toString() {
         return "Patient{" +
@@ -115,6 +128,8 @@ public class Patient {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", state=" + state +
                 ", clinic=" + clinic +
+                ", card=" + card +
                 '}';
     }
 }
+
