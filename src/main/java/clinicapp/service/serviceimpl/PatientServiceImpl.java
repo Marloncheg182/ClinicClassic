@@ -1,11 +1,12 @@
-package clinicspdata.serviceimpl;
+package clinicapp.service.serviceimpl;
 
-import clinicspdata.entity.Patient;
-import clinicspdata.entity.patients.PatientState;
-import clinicspdata.repositories.PatientRepository;
-import clinicspdata.services.PatientService;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import clinicapp.dao.PatientDAO;
+import clinicapp.entity.Patient;
+import clinicapp.entity.patients.PatientState;
+import clinicapp.service.PatientService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,46 +17,57 @@ import java.util.List;
 @Service
 public class PatientServiceImpl implements PatientService {
 
-    @Autowired
-    private PatientRepository patientRepository;
+    private PatientDAO patientDAO;
 
-    @Override
-    public Patient create(Patient patient) {
-        return this.patientRepository.saveAndFlush(patient);
+    public void setPatientDAO(PatientDAO patientDAO) {
+        this.patientDAO = patientDAO;
     }
 
     @Override
+    @Transactional
+    public void create(Patient p) {
+        this.patientDAO.create(p);
+    }
+
+    @Override
+    @Transactional
     public Patient getByFirstName(String firstName) {
-        return this.patientRepository.finByFirstName(firstName);
+        return this.patientDAO.getByFirstName(firstName);
     }
 
     @Override
+    @Transactional
     public Patient getByLastName(String lastName) {
-        return this.patientRepository.findByLastName(lastName);
+        return this.patientDAO.getByLastName(lastName);
     }
 
     @Override
+    @Transactional
     public Patient getByAge(Integer age) {
-        return this.patientRepository.findByAge(age);
+        return this.patientDAO.getByAge(age);
     }
 
     @Override
-    public Patient getByState(PatientState state) {
-        return this.patientRepository.findByStat(state);
+    @Transactional
+    public List<Patient> getByState(PatientState state) {
+        return this.patientDAO.getByState(state);
     }
 
     @Override
+    @Transactional
     public List<Patient> getAll() {
-        return this.patientRepository.findAll();
+        return this.patientDAO.getAll();
     }
 
     @Override
-    public Patient update(Patient patient) {
-        return this.patientRepository.saveAndFlush(patient);
+    @Transactional
+    public void update(Patient p) {
+        this.patientDAO.update(p);
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
-        this.patientRepository.delete(id);
+        this.patientDAO.delete(id);
     }
 }

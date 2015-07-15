@@ -1,10 +1,12 @@
-package clinicspdata.serviceimpl;
+package clinicapp.service.serviceimpl;
 
-import clinicspdata.entity.Clinic;
-import clinicspdata.repositories.ClinicRepository;
-import clinicspdata.services.ClinicService;
-import org.springframework.beans.factory.annotation.Autowired;
+
+
+import clinicapp.dao.ClinicDAO;
+import clinicapp.entity.Clinic;
+import clinicapp.service.ClinicService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,37 +17,46 @@ import java.util.List;
 @Service
 public class ClinicServiceImpl implements ClinicService {
 
-    @Autowired
-    private ClinicRepository repository;   // Working with Clinic repository CRUD access
+    private ClinicDAO clinicDAO;
 
-    @Override
-    public Clinic create(Clinic clinic) {
-        return this.repository.saveAndFlush(clinic);
+    public void setClinicDAO(ClinicDAO clinicDAO) {
+        this.clinicDAO = clinicDAO;
     }
 
     @Override
+    @Transactional
+    public void create(Clinic c) {
+        this.clinicDAO.create(c);
+    }
+
+    @Override
+    @Transactional
     public Clinic getByName(String name) {
-        return this.repository.findByName(name);
+        return this.clinicDAO.getByName(name);
     }
 
     @Override
+    @Transactional
     public Clinic getById(Long id) {
-        return this.repository.findById(id);
+        return this.clinicDAO.getById(id);
     }
 
     @Override
+    @Transactional
     public List<Clinic> getAll() {
-        return this.repository.findAll();
+        return this.clinicDAO.getAll();
     }
 
     @Override
-    public Clinic update(Clinic clinic) {
-        return this.repository.saveAndFlush(clinic);
+    @Transactional
+    public void update(Clinic c) {
+        this.clinicDAO.update(c);
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
-        this.repository.delete(id);
-
+        this.clinicDAO.delete(id);
     }
 }
+

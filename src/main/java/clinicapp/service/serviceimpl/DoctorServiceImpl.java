@@ -1,12 +1,13 @@
-package clinicspdata.serviceimpl;
+package clinicapp.service.serviceimpl;
 
-import clinicspdata.entity.Doctor;
-import clinicspdata.entity.doctors.DoctorPosition;
-import clinicspdata.entity.doctors.Rating;
-import clinicspdata.repositories.DoctorRepository;
-import clinicspdata.services.DoctorService;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import clinicapp.dao.DoctorDAO;
+import clinicapp.entity.Doctor;
+import clinicapp.entity.doctors.DoctorPosition;
+import clinicapp.entity.doctors.Rating;
+import clinicapp.service.DoctorService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,51 +18,63 @@ import java.util.List;
 @Service
 public class DoctorServiceImpl implements DoctorService {
 
-    @Autowired
-    private DoctorRepository doctorRepository;  // Doctor repository included
+    private DoctorDAO doctorDAO;
 
-    @Override
-    public Doctor create(Doctor doctor) {
-        return this.doctorRepository.saveAndFlush(doctor);
+    public void setDoctorDAO(DoctorDAO doctorDAO) {
+        this.doctorDAO = doctorDAO;
     }
 
     @Override
+    @Transactional
+    public void create(Doctor d) {
+        this.doctorDAO.create(d);
+    }
+
+    @Override
+    @Transactional
     public Doctor getByFirstName(String firstName) {
-        return this.doctorRepository.findByFirstName(firstName);
+        return this.doctorDAO.getByFirstName(firstName);
     }
 
     @Override
+    @Transactional
     public Doctor getByLastName(String lastName) {
-        return this.doctorRepository.findByLastName(lastName);
+        return this.doctorDAO.getByLastName(lastName);
     }
 
     @Override
+    @Transactional
     public Doctor getByAge(Integer age) {
-        return this.doctorRepository.findByAge(age);
+        return this.getByAge(age);
     }
 
     @Override
-    public Doctor getByPosition(DoctorPosition position) {
-        return this.doctorRepository.findByPosition(position);
+    @Transactional
+    public List<Doctor> getByPosition(DoctorPosition position) {
+        return this.doctorDAO.getAll();
     }
 
     @Override
-    public Doctor getByRating(Rating rating) {
-        return this.doctorRepository.findByRating(rating);
+    @Transactional
+    public List<Doctor> getByRating(Rating rating) {
+        return this.doctorDAO.getByRating(rating);
     }
 
     @Override
+    @Transactional
     public List<Doctor> getAll() {
-        return this.doctorRepository.findAll();
+        return this.doctorDAO.getAll();
     }
 
     @Override
-    public Doctor update(Doctor doctor) {
-        return this.doctorRepository.saveAndFlush(doctor);
+    @Transactional
+    public void update(Doctor d) {
+        this.doctorDAO.update(d);
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
-        this.doctorRepository.delete(id);
+        this.doctorDAO.delete(id);
     }
 }

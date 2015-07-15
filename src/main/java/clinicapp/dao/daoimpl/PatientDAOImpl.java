@@ -69,7 +69,7 @@ public class PatientDAOImpl implements PatientDAO {
 
         return patients;
     }
-
+    @SuppressWarnings("unchacked")
     @Override
     public List<Patient> getAll() {
         Session session = this.sessionFactory.getCurrentSession();

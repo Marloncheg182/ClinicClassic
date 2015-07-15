@@ -1,7 +1,7 @@
-package clinicspdata.services;
+package clinicapp.service;
 
-import clinicspdata.entity.Patient;
-import clinicspdata.entity.patients.PatientState;
+import clinicapp.entity.Patient;
+import clinicapp.entity.patients.PatientState;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface PatientService {
 
-    Patient create(Patient patient);
+    void create(Patient p);
 
     Patient getByFirstName(String firstName);
 
@@ -19,11 +19,11 @@ public interface PatientService {
 
     Patient getByAge(Integer age);
 
-    Patient getByState(PatientState state);
+    List<Patient> getByState(PatientState state);
 
     List<Patient> getAll();
 
-    Patient update(Patient patient);
+    void update(Patient p);
 
     void delete(Long id);
 

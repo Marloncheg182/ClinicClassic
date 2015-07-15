@@ -1,10 +1,11 @@
-package clinicspdata.serviceimpl;
+package clinicapp.service.serviceimpl;
 
-import clinicspdata.entity.Procedure;
-import clinicspdata.repositories.ProcedureRepository;
-import clinicspdata.services.ProcedureService;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import clinicapp.dao.ProcedureDAO;
+import clinicapp.entity.Procedure;
+import clinicapp.service.ProcedureService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,36 +16,45 @@ import java.util.List;
 @Service
 public class ProcedureServiceImpl implements ProcedureService {
 
-    @Autowired
-    private ProcedureRepository procedureRepository;
+    private ProcedureDAO procedureDAO;
 
-    @Override
-    public Procedure create(Procedure procedure) {
-        return this.procedureRepository.saveAndFlush(procedure);
+    public void setProcedureDAO(ProcedureDAO procedureDAO) {
+        this.procedureDAO = procedureDAO;
     }
 
     @Override
+    @Transactional
+    public void create(Procedure p) {
+        this.procedureDAO.create(p);
+    }
+
+    @Override
+    @Transactional
     public Procedure getById(Long id) {
-        return this.procedureRepository.findById(id);
+        return this.procedureDAO.getById(id);
     }
 
     @Override
+    @Transactional
     public Procedure getByDate(String date) {
-        return this.procedureRepository.findByDate(date);
+        return this.procedureDAO.getByDate(date);
     }
 
     @Override
+    @Transactional
     public List<Procedure> getAll() {
-        return this.procedureRepository.findAll();
+        return this.procedureDAO.getAll();
     }
 
     @Override
-    public Procedure update(Procedure procedure) {
-        return this.procedureRepository.saveAndFlush(procedure);
+    @Transactional
+    public void update(Procedure p) {
+        this.procedureDAO.update(p);
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
-        this.procedureRepository.delete(id);
+        this.procedureDAO.delete(id);
     }
 }

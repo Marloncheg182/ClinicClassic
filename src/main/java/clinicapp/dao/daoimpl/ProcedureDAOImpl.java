@@ -50,7 +50,7 @@ public class ProcedureDAOImpl implements ProcedureDAO {
 
         return p;
     }
-
+    @SuppressWarnings("unchacked")
     @Override
     public List<Procedure> getAll() {
         Session session = this.sessionFactory.getCurrentSession();

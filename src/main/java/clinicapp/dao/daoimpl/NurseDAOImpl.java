@@ -68,7 +68,7 @@ public class NurseDAOImpl implements NurseDAO {
 
         return nurses;
     }
-
+    @SuppressWarnings("unchacked")
     @Override
     public List<Nurse> getAll() {
         Session session = this.sessionFactory.getCurrentSession();

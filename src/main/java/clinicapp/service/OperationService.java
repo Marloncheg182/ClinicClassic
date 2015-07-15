@@ -1,6 +1,6 @@
-package clinicspdata.services;
+package clinicapp.service;
 
-import clinicspdata.entity.Operation;
+import clinicapp.entity.Operation;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface OperationService {
 
-    Operation create (Operation operation);
+    void create (Operation o);
 
     Operation getById(Long id);
 
@@ -20,7 +20,7 @@ public interface OperationService {
 
     List<Operation> getAll();
 
-    Operation update(Operation operation);
+    void update(Operation o);
 
     void delete(Long id);
 }

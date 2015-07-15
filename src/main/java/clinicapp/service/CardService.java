@@ -1,6 +1,7 @@
-package clinicspdata.services;
+package clinicapp.service;
 
-import clinicspdata.entity.Card;
+import clinicapp.entity.Card;
+
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  */
 public interface CardService {
 
-    Card create(Card card);
+    void  create(Card c);
 
     Card getById(Long id);
 
@@ -20,7 +21,7 @@ public interface CardService {
 
     List<Card> getAll();
 
-    Card update(Card card);
+    void  update(Card c);
 
     void delete(Long id);
 

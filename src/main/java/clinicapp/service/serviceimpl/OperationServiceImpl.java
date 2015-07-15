@@ -1,10 +1,10 @@
-package clinicspdata.serviceimpl;
+package clinicapp.service.serviceimpl;
 
-import clinicspdata.entity.Operation;
-import clinicspdata.repositories.OperationRepository;
-import clinicspdata.services.OperationService;
-import org.springframework.beans.factory.annotation.Autowired;
+import clinicapp.dao.OperationDAO;
+import clinicapp.entity.Operation;
+import clinicapp.service.OperationService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,41 +15,51 @@ import java.util.List;
 @Service
 public class OperationServiceImpl implements OperationService {
 
-    @Autowired
-    private OperationRepository operationRepository;
+    private OperationDAO operationDAO;
 
-    @Override
-    public Operation create(Operation operation) {
-        return this.operationRepository.saveAndFlush(operation);
+    public void setOperationDAO(OperationDAO operationDAO) {
+        this.operationDAO = operationDAO;
     }
 
     @Override
+    @Transactional
+    public void create(Operation o) {
+        this.operationDAO.create(o);
+    }
+
+    @Override
+    @Transactional
     public Operation getById(Long id) {
-        return this.operationRepository.findById(id);
+        return this.operationDAO.getById(id);
     }
 
     @Override
+    @Transactional
     public Operation getByDate(String date) {
-        return this.operationRepository.findByDate(date);
+        return this.operationDAO.getByDate(date);
     }
 
     @Override
+    @Transactional
     public Operation getByType(String type) {
-        return this.operationRepository.findByType(type);
+        return this.operationDAO.getByType(type);
     }
 
     @Override
+    @Transactional
     public List<Operation> getAll() {
-        return this.operationRepository.findAll();
+        return this.operationDAO.getAll();
     }
 
     @Override
-    public Operation update(Operation operation) {
-        return this.operationRepository.saveAndFlush(operation);
+    @Transactional
+    public void update(Operation o) {
+        this.operationDAO.update(o);
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
-        this.operationRepository.delete(id);
+        this.operationDAO.delete(id);
     }
 }

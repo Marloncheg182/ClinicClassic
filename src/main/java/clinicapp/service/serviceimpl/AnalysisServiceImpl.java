@@ -1,10 +1,11 @@
-package clinicspdata.serviceimpl;
+package clinicapp.service.serviceimpl;
 
-import clinicspdata.entity.Analysis;
-import clinicspdata.repositories.AnalysisRepository;
-import clinicspdata.services.AnalysisService;
-import org.springframework.beans.factory.annotation.Autowired;
+import clinicapp.dao.AnalysisDAO;
+
+import clinicapp.entity.Analysis;
+import clinicapp.service.AnalysisService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,36 +16,45 @@ import java.util.List;
 @Service
 public class AnalysisServiceImpl implements AnalysisService {
 
-    @Autowired
-    private AnalysisRepository analysisRepository;  // Analysis repository
+    private AnalysisDAO analysisDAO;
 
-    @Override
-    public Analysis create(Analysis analysis) {
-        return this.analysisRepository.saveAndFlush(analysis);
+    public void setAnalysisDAO(AnalysisDAO analysisDAO) {
+        this.analysisDAO = analysisDAO;
     }
 
     @Override
+    @Transactional
+    public void create(Analysis a) {
+        this.analysisDAO.create(a);
+    }
+
+    @Override
+    @Transactional
     public Analysis getById(Long id) {
-        return this.analysisRepository.findById(id);
+        return this.analysisDAO.getById(id);
     }
 
     @Override
+    @Transactional
     public Analysis getByDate(String date) {
-        return this.analysisRepository.findByDate(date);
+        return this.analysisDAO.getByDate(date);
     }
 
     @Override
+    @Transactional
     public List<Analysis> getAll() {
-        return this.analysisRepository.findAll();
+        return this.analysisDAO.getAll();
     }
 
     @Override
-    public Analysis update(Analysis analysis) {
-        return this.analysisRepository.saveAndFlush(analysis);
+    @Transactional
+    public void update(Analysis a) {
+        this.analysisDAO.update(a);
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
-        this.analysisRepository.delete(id);
+        this.analysisDAO.delete(id);
     }
 }

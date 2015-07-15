@@ -1,10 +1,11 @@
-package clinicspdata.serviceimpl;
+package clinicapp.service.serviceimpl;
 
-import clinicspdata.entity.Card;
-import clinicspdata.repositories.CardRepository;
-import clinicspdata.services.CardService;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import clinicapp.dao.CardDAO;
+import clinicapp.entity.Card;
+import clinicapp.service.CardService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,41 +17,51 @@ import java.util.List;
 @Service
 public class CardServiceImpl implements CardService {
 
-    @Autowired
-    private CardRepository cardRepository;   // Card repository included
+    private CardDAO cardDAO;
 
-    @Override
-    public Card create(Card card) {
-        return this.cardRepository.saveAndFlush(card);
+    public void setCardDAO(CardDAO cardDAO) {
+        this.cardDAO = cardDAO;
     }
 
     @Override
+    @Transactional
+    public void create(Card c) {
+        this.cardDAO.create(c);
+    }
+
+    @Override
+    @Transactional
     public Card getById(Long id) {
-        return this.cardRepository.findById(id);
+        return this.cardDAO.getById(id);
     }
 
     @Override
+    @Transactional
     public Card getByLastName(String lastName) {
-        return this.cardRepository.findByName(lastName);
+        return this.getByLastName(lastName);
     }
 
     @Override
+    @Transactional
     public Card getByBirthDate(String birthDate) {
-        return this.cardRepository.findByBirthDate(birthDate);
+        return this.cardDAO.getByBirthDate(birthDate);
     }
 
     @Override
+    @Transactional
     public List<Card> getAll() {
-        return this.cardRepository.findAll();
+        return this.cardDAO.getAll();
     }
 
     @Override
-    public Card update(Card card) {
-        return this.cardRepository.saveAndFlush(card);
+    @Transactional
+    public void update(Card c) {
+        this.cardDAO.update(c);
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
-        cardRepository.delete(id);
+        this.cardDAO.delete(id);
     }
 }

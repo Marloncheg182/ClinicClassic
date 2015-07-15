@@ -59,7 +59,7 @@ public class OperationDAOImpl implements OperationDAO {
 
         return o;
     }
-
+    @SuppressWarnings("unchacked")
     @Override
     public List<Operation> getAll() {
         Session session = this.sessionFactory.getCurrentSession();

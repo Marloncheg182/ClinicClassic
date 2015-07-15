@@ -1,10 +1,11 @@
-package clinicspdata.serviceimpl;
+package clinicapp.service.serviceimpl;
 
-import clinicspdata.entity.Insurance;
-import clinicspdata.repositories.InsuranceRepository;
-import clinicspdata.services.InsuranceService;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import clinicapp.dao.InsuranceDAO;
+import clinicapp.entity.Insurance;
+import clinicapp.service.InsuranceService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,31 +16,41 @@ import java.util.List;
 @Service
 public class InsuranceServiceImpl implements InsuranceService {
 
-    @Autowired
-    private InsuranceRepository insuranceRepository;
+    private InsuranceDAO insuranceDAO;
 
-    @Override
-    public Insurance create(Insurance insurance) {
-        return this.insuranceRepository.saveAndFlush(insurance);
+    public void setInsuranceDAO(InsuranceDAO insuranceDAO) {
+        this.insuranceDAO = insuranceDAO;
     }
 
     @Override
+    @Transactional
+    public void create(Insurance i) {
+        this.insuranceDAO.create(i);
+    }
+
+    @Override
+    @Transactional
     public Insurance getById(Long id) {
-        return this.insuranceRepository.findById(id);
+        return this.insuranceDAO.getById(id);
     }
 
     @Override
+    @Transactional
     public List<Insurance> getAll() {
-        return this.insuranceRepository.findAll();
+        return this.insuranceDAO.getAll();
     }
 
     @Override
-    public Insurance update(Insurance insurance) {
-        return this.insuranceRepository.saveAndFlush(insurance);
+    @Transactional
+    public void update(Insurance i) {
+        this.insuranceDAO.update(i);
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
-        insuranceRepository.delete(id);
+        this.insuranceDAO.delete(id);
     }
 }
+
+

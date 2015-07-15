@@ -1,7 +1,8 @@
-package clinicspdata.services;
+package clinicapp.service;
 
-import clinicspdata.entity.Nurse;
-import clinicspdata.entity.nurses.NursePosition;
+
+import clinicapp.entity.Nurse;
+import clinicapp.entity.nurses.NursePosition;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
  */
 public interface NurseService {
 
-    Nurse create(Nurse nurse);
+    void create(Nurse n);
 
     Nurse getByFirstName(String firstName);
 
@@ -19,11 +20,11 @@ public interface NurseService {
 
     Nurse getByAge(Integer age);
 
-    Nurse getByPosition(NursePosition position);
+    List<Nurse> getByPosition(NursePosition position);
 
     List<Nurse> getAll();
 
-    Nurse update(Nurse nurse);
+    void update(Nurse n);
 
     void delete(Long id);
 }

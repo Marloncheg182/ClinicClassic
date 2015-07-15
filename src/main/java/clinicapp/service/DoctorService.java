@@ -1,9 +1,10 @@
-package clinicspdata.services;
+package clinicapp.service;
 
-import clinicspdata.entity.Doctor;
-import clinicspdata.entity.doctors.DoctorPosition;
-import clinicspdata.entity.doctors.Rating;
 
+
+import clinicapp.entity.Doctor;
+import clinicapp.entity.doctors.DoctorPosition;
+import clinicapp.entity.doctors.Rating;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
  */
 public interface DoctorService {
 
-    Doctor create(Doctor doctor);
+    void create(Doctor d);
 
     Doctor getByFirstName(String firstName);
 
@@ -21,13 +22,13 @@ public interface DoctorService {
 
     Doctor getByAge(Integer age);
 
-    Doctor getByPosition(DoctorPosition position);
+    List<Doctor> getByPosition(DoctorPosition position);
 
-    Doctor getByRating(Rating rating);
+    List<Doctor> getByRating(Rating rating);
 
     List<Doctor> getAll();
 
-    Doctor update(Doctor doctor);
+    void update(Doctor d);
 
     void delete(Long id);
 

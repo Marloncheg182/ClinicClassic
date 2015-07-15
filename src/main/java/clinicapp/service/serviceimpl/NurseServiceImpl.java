@@ -1,11 +1,12 @@
-package clinicspdata.serviceimpl;
+package clinicapp.service.serviceimpl;
 
-import clinicspdata.entity.Nurse;
-import clinicspdata.entity.nurses.NursePosition;
-import clinicspdata.repositories.NurseRepository;
-import clinicspdata.services.NurseService;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import clinicapp.dao.NurseDAO;
+import clinicapp.entity.Nurse;
+import clinicapp.entity.nurses.NursePosition;
+import clinicapp.service.NurseService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,46 +17,57 @@ import java.util.List;
 @Service
 public class NurseServiceImpl implements NurseService {
 
-    @Autowired
-    private NurseRepository nurseRepository;
+    private NurseDAO nurseDAO;
 
-    @Override
-    public Nurse create(Nurse nurse) {
-        return this.nurseRepository.saveAndFlush(nurse);
+    public void setNurseDAO(NurseDAO nurseDAO) {
+        this.nurseDAO = nurseDAO;
     }
 
     @Override
+    @Transactional
+    public void create(Nurse n) {
+        this.nurseDAO.create(n);
+    }
+
+    @Override
+    @Transactional
     public Nurse getByFirstName(String firstName) {
-        return this.nurseRepository.findByFirstName(firstName);
+        return this.nurseDAO.getByFirstName(firstName);
     }
 
     @Override
+    @Transactional
     public Nurse getByLastName(String lastName) {
-        return this.nurseRepository.findByLastName(lastName);
+        return this.nurseDAO.getByLastName(lastName);
     }
 
     @Override
+    @Transactional
     public Nurse getByAge(Integer age) {
-        return this.nurseRepository.findByAge(age);
+        return this.nurseDAO.getByAge(age);
     }
 
     @Override
-    public Nurse getByPosition(NursePosition position) {
-        return this.nurseRepository.findByPosition(position);
+    @Transactional
+    public List<Nurse> getByPosition(NursePosition position) {
+        return this.nurseDAO.getByPosition(position);
     }
 
     @Override
+    @Transactional
     public List<Nurse> getAll() {
-        return this.nurseRepository.findAll();
+        return this.nurseDAO.getAll();
     }
 
     @Override
-    public Nurse update(Nurse nurse) {
-        return this.nurseRepository.saveAndFlush(nurse);
+    @Transactional
+    public void update(Nurse n) {
+        this.nurseDAO.update(n);
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
-        this.nurseRepository.delete(id);
+        this.nurseDAO.delete(id);
     }
 }

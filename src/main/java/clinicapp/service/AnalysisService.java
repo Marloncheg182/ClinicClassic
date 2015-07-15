@@ -1,6 +1,7 @@
-package clinicspdata.services;
+package clinicapp.service;
 
-import clinicspdata.entity.Analysis;
+import clinicapp.entity.Analysis;
+
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  */
 public interface AnalysisService {
 
-    Analysis create(Analysis analysis);
+    void create(Analysis a);
 
     Analysis getById(Long id);
 
@@ -18,7 +19,7 @@ public interface AnalysisService {
 
     List<Analysis> getAll();
 
-    Analysis update(Analysis analysis);
+    void update(Analysis a);
 
     void delete(Long id);
 

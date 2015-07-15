@@ -1,6 +1,8 @@
-package clinicspdata.services;
+package clinicapp.service;
 
-import clinicspdata.entity.Clinic;
+
+
+import clinicapp.entity.Clinic;
 
 import java.util.List;
 
@@ -10,7 +12,7 @@ import java.util.List;
  */
 public interface ClinicService {
 
-    Clinic create(Clinic clinic);
+    void create(Clinic c);
 
     Clinic getByName(String name);
 
@@ -18,7 +20,7 @@ public interface ClinicService {
 
     List<Clinic> getAll();
 
-    Clinic update(Clinic clinic);
+    void update(Clinic c);
 
     void delete(Long id);
 

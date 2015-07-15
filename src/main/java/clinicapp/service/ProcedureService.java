@@ -1,6 +1,8 @@
-package clinicspdata.services;
+package clinicapp.service;
 
-import clinicspdata.entity.Procedure;
+
+
+import clinicapp.entity.Procedure;
 
 import java.util.List;
 
@@ -10,7 +12,7 @@ import java.util.List;
  */
 public interface ProcedureService  {
 
-    Procedure create(Procedure procedure);
+    void create(Procedure p);
 
     Procedure getById(Long id);
 
@@ -18,7 +20,7 @@ public interface ProcedureService  {
 
     List<Procedure> getAll();
 
-    Procedure update(Procedure procedure);
+    void update(Procedure p);
 
     void delete(Long id);
 }

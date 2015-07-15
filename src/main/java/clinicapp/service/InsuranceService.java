@@ -1,6 +1,8 @@
-package clinicspdata.services;
+package clinicapp.service;
 
-import clinicspdata.entity.Insurance;
+
+
+import clinicapp.entity.Insurance;
 
 import java.util.List;
 
@@ -9,15 +11,13 @@ import java.util.List;
  */
 public interface InsuranceService {
 
-    Insurance create(Insurance insurance);
+    void create(Insurance i);
 
     Insurance getById(Long id);
 
     List<Insurance> getAll();
 
-    Insurance update(Insurance insurance);
+    void update(Insurance i);
 
     void delete(Long id);
-
-
 }

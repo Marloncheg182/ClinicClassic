@@ -39,7 +39,7 @@ public class InsuranceDAOImpl implements InsuranceDAO {
 
         return i;
     }
-
+    @SuppressWarnings("unchacked")
     @Override
     public List<Insurance> getAll() {
         Session session = this.sessionFactory.getCurrentSession();
