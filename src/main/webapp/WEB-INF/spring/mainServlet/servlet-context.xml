@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans:beans xmlns="http://www.springframework.org/schema/mvc"
-             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
-             xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:context="http://www.springframework.org/schema/context"
+             xmlns:tx="http://www.springframework.org/schema/tx"
              xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
@@ -36,7 +38,7 @@
     <beans:bean id="hibernateAnnotatedSessionFactory"
                 class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <beans:property name="dataSource" ref="dataSource"/>
-        <beans:property name="annotatedClasses" >
+        <beans:property name="annotatedClasses">
             <beans:list>
                 <beans:value>clinicapp.entity.Analysis</beans:value>
                 <beans:value>clinicapp.entity.Card</beans:value>
@@ -61,5 +63,81 @@
         </beans:property>
     </beans:bean>
 
+    <!--DAO mapping-->
+
+    <beans:bean id="analysisDAO" class="clinicapp.dao.daoimpl.AnalysisDAOImpl">
+        <beans:property name="sessionFactory" ref="hibernateAnnotatedSessionFactory"/>
+    </beans:bean>
+    <beans:bean id="analysisService" class="clinicapp.service.serviceimpl.AnalysisServiceImpl">
+        <beans:property name="analysisDAO" ref="analysisDAO"></beans:property>
+    </beans:bean>
+
+    <beans:bean id="cardDAO" class="clinicapp.dao.daoimpl.CardDAOImpl">
+        <beans:property name="sessionFactory" ref="hibernateAnnotatedSessionFactory"/>
+    </beans:bean>
+    <beans:bean id="cardService" class="clinicapp.service.serviceimpl.CardServiceImpl">
+        <beans:property name="cardDAO" ref="cardDAO"></beans:property>
+    </beans:bean>
+
+    <beans:bean id="clinicDAO" class="clinicapp.dao.daoimpl.ClinicDAOImpl">
+        <beans:property name="sessionFactory" ref="hibernateAnnotatedSessionFactory"/>
+    </beans:bean>
+    <beans:bean id="clinicService" class="clinicapp.service.serviceimpl.ClinicServiceImpl">
+        <beans:property name="clinicDAO" ref="clinicDAO"></beans:property>
+    </beans:bean>
+
+    <beans:bean id="doctorDAO" class="clinicapp.dao.daoimpl.DoctorDAOImpl">
+        <beans:property name="sessionFactory" ref="hibernateAnnotatedSessionFactory"/>
+    </beans:bean>
+    <beans:bean id="doctorService" class="clinicapp.service.serviceimpl.DoctorServiceImpl">
+        <beans:property name="doctorDAO" ref="doctorDAO"></beans:property>
+    </beans:bean>
+
+    <beans:bean id="insuranceDAO" class="clinicapp.dao.daoimpl.InsuranceDAOImpl">
+        <beans:property name="sessionFactory" ref="hibernateAnnotatedSessionFactory"/>
+    </beans:bean>
+    <beans:bean id="insuranceService" class="clinicapp.service.serviceimpl.InsuranceServiceImpl">
+        <beans:property name="insuranceDAO" ref="insuranceDAO"></beans:property>
+    </beans:bean>
+
+    <beans:bean id="nurseDAO" class="clinicapp.dao.daoimpl.NurseDAOImpl">
+        <beans:property name="sessionFactory" ref="hibernateAnnotatedSessionFactory"/>
+    </beans:bean>
+    <beans:bean id="nurseService" class="clinicapp.service.serviceimpl.NurseServiceImpl">
+        <beans:property name="nurseDAO" ref="nurseDAO"></beans:property>
+    </beans:bean>
+
+    <beans:bean id="operationDAO" class="clinicapp.dao.daoimpl.OperationDAOImpl">
+        <beans:property name="sessionFactory" ref="hibernateAnnotatedSessionFactory"/>
+    </beans:bean>
+    <beans:bean id="operationService" class="clinicapp.service.serviceimpl.OperationServiceImpl">
+        <beans:property name="operationDAO" ref="operationDAO"></beans:property>
+    </beans:bean>
+
+    <beans:bean id="patientDAO" class="clinicapp.dao.daoimpl.PatientDAOImpl">
+        <beans:property name="sessionFactory" ref="hibernateAnnotatedSessionFactory"/>
+    </beans:bean>
+    <beans:bean id="patientService" class="clinicapp.service.serviceimpl.PatientServiceImpl">
+        <beans:property name="patientDAO" ref="patientDAO"></beans:property>
+    </beans:bean>
+
+    <beans:bean id="procedureDAO" class="clinicapp.dao.daoimpl.ProcedureDAOImpl">
+        <beans:property name="sessionFactory" ref="hibernateAnnotatedSessionFactory"/>
+    </beans:bean>
+    <beans:bean id="procedureService" class="clinicapp.service.serviceimpl.ProcedureServiceImpl">
+        <beans:property name="procedureDAO" ref="procedureDAO"></beans:property>
+    </beans:bean>
+
+    <!--Controller-->
+
+    <context:component-scan base-package="clinicapp.controller"/>
+
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <!--Transactions-->
+
+    <beans:bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <beans:property name="sessionFactory" ref="hibernateAnnotatedSessionFactory"/>
+    </beans:bean>
 
 </beans:beans>
