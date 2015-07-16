@@ -15,7 +15,7 @@
 
     <!--HTTP GET requests bean config-->
 
-    <resources mapping="/resources/**" location="/resources/"/>
+    <resources mapping="/resources/**" location="resources"/>
 
     <!-- View page config-->
 

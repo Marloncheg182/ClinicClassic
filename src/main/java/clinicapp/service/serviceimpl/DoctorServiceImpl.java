@@ -45,7 +45,7 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     @Transactional
     public Doctor getByAge(Integer age) {
-        return this.getByAge(age);
+        return this.doctorDAO.getByAge(age);
     }
 
     @Override

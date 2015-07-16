@@ -38,7 +38,7 @@ public class CardServiceImpl implements CardService {
     @Override
     @Transactional
     public Card getByLastName(String lastName) {
-        return this.getByLastName(lastName);
+        return this.cardDAO.getByLastName(lastName);
     }
 
     @Override
